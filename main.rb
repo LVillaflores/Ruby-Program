@@ -1,7 +1,7 @@
 class Question
 	attr_reader :name
 
-	def initialize(name)
+	def initialize
 		print "Hello! Please Enter a name: "
 		$name = gets.chomp
 		$score = 0
@@ -10,7 +10,7 @@ class Question
 
 	def q1
 		a = "UST"
-		print "Question 1:..."
+		print "Question 1:Where do you study? "
 		b = gets.chomp
 		if b.upcase.eql?a
 			puts "Correct!"
@@ -22,7 +22,7 @@ class Question
 
 	def q2
 		a = "Vodka"
-		print "Question 2:..."
+		print "Question 2:Favorite Alcoholic Beverage? "
 		b = gets.chomp
 		if b.eql?a
 			puts "Correct!"
@@ -34,7 +34,7 @@ class Question
 
 	def q3
 		a = "Batman"
-		print "Question 3:..."
+		print "Question 3:Bahala na si? "
 		b = gets.chomp
 		if b.eql?a
 			puts "Correct!"
@@ -44,14 +44,16 @@ class Question
 		end 
 	end
 
-	for i in 0..2
-		case $arr.at(i)
-			when 1
-				puts "q1"
-			when 2
-				puts "q2"
-			when 3
-				puts "q3"
+	def ran
+		for i in 0..2
+			case $arr.at(i)
+				when 1
+					$start.q1
+				when 2
+					$start.q2
+				when 3
+					$start.q3
+			end
 		end
 	end
 
@@ -61,9 +63,7 @@ class Question
 		p "Score: #{$score}"
 	end
 
-john = Question.new("John")
-john.q1
-john.q2
-john.q3
-john.complete
+$start = Question.new
+$start.ran
+$start.complete
 end
