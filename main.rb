@@ -3,7 +3,7 @@ class Question
 
 	def initialize
 		print "Hello! Please Enter a name: "
-		$name = gets.chomp
+		$name = gets.chomp.capitalize
 		$score = 0
 		$arr = [1,2,3].shuffle
 	end
@@ -24,7 +24,7 @@ class Question
 		a = "Vodka"
 		print "Question 2:Favorite Alcoholic Beverage? "
 		b = gets.chomp
-		if b.eql?a
+		if b.capitalize.eql?a
 			puts "Correct!"
 			$score+=1
 		else
@@ -36,7 +36,7 @@ class Question
 		a = "Batman"
 		print "Question 3:Bahala na si? "
 		b = gets.chomp
-		if b.eql?a
+		if b.capitalize.eql?a
 			puts "Correct!"
 			$score+=1
 		else
@@ -61,6 +61,7 @@ class Question
 		p "Game Completed."
 		p "Name: #{$name}"
 		p "Score: #{$score}"
+		p "----------------------"
 	end
 
 $start = Question.new
