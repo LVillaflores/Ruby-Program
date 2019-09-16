@@ -67,12 +67,12 @@ class Question
 			ans = gets.chomp.capitalize
 			if ans == ('Yes') or ans == ('Y')
 				$start = Question.new
+				$start.check
 				case $name
 					when $hs
 						$start.Hscore
 					else
-						$start.ran
-						$start.complete
+						$start.game
 					end
 			end
 			if ans == ('No') or ans == ('N')
@@ -83,25 +83,44 @@ class Question
 
 	def complete
 		$game_hash[$name] = $score
-
 		p "Game Completed."
 		p "Name: #{$name}" 
-		p "Score: #{$score} "
+		p "Score: #{$game_hash[$name]} "
 		p "----------------------"
+		$check = $game_hash.key?($name)
 		$start.again
 	end
 
+	def check
+		if $game_hash.key?($name)
+			$score = $game_hash[$name]
+			$start.complete
+		end
+	end
+
+	def sort
+		inv = $game_hash.invert
+		sorted = inv.sort
+		rev = sorted.reverse
+		re = rev.to_h
+		$game_hash = re.invert
+	end
+
 	def Hscore
-		$game_hash.sort_by {|key, value| value}.to_h
+		$start.sort
 		if $name == $hs
 			p "Highscores: "
 			$game_hash.each do |key, value|
 			 puts "#{key} - #{value}"
 			end
 		end
-	end 
+	end
+
+	def game
+		$start.ran
+		$start.complete
+	end
 
 	$start = Question.new
-	$start.ran
-	$start.complete
+	$start.game
 end
