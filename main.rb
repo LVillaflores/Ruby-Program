@@ -1,16 +1,20 @@
 class Question
 	attr_reader :name
 
+	$game_hash = {}
+
+	
 	def initialize
 		print "Hello! Please Enter a name: "
 		$name = gets.chomp.capitalize
 		$score = 0
+		$hs = "Highscores"
 		$arr = [1,2,3].shuffle
 	end
 
 	def q1
 		a = "UST"
-		print "Question 1:Where do you study? "
+		print "Question :Where do you study? "
 		b = gets.chomp
 		if b.upcase.eql?a
 			puts "Correct!"
@@ -22,7 +26,7 @@ class Question
 
 	def q2
 		a = "Vodka"
-		print "Question 2:Favorite Alcoholic Beverage? "
+		print "Question :Favorite Alcoholic Beverage? "
 		b = gets.chomp
 		if b.capitalize.eql?a
 			puts "Correct!"
@@ -34,7 +38,7 @@ class Question
 
 	def q3
 		a = "Batman"
-		print "Question 3:Bahala na si? "
+		print "Question :Bahala na si? "
 		b = gets.chomp
 		if b.capitalize.eql?a
 			puts "Correct!"
@@ -57,14 +61,47 @@ class Question
 		end
 	end
 
-	def complete
-		p "Game Completed."
-		p "Name: #{$name}"
-		p "Score: #{$score}"
-		p "----------------------"
+	def again
+		loop do 
+			p "Again(Yes/No)?"
+			ans = gets.chomp.capitalize
+			if ans == ('Yes') or ans == ('Y')
+				$start = Question.new
+				case $name
+					when $hs
+						$start.Hscore
+					else
+						$start.ran
+						$start.complete
+					end
+			end
+			if ans == ('No') or ans == ('N')
+				exit
+			end
+		end
 	end
 
-$start = Question.new
-$start.ran
-$start.complete
+	def complete
+		$game_hash[$name] = $score
+
+		p "Game Completed."
+		p "Name: #{$name}" 
+		p "Score: #{$score} "
+		p "----------------------"
+		$start.again
+	end
+
+	def Hscore
+		$game_hash.sort_by {|key, value| value}.to_h
+		if $name == $hs
+			p "Highscores: "
+			$game_hash.each do |key, value|
+			 puts "#{key} - #{value}"
+			end
+		end
+	end 
+
+	$start = Question.new
+	$start.ran
+	$start.complete
 end
