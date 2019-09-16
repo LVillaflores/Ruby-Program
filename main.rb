@@ -65,7 +65,7 @@ class Question
 		loop do 
 			p "Again(Yes/No)?"
 			ans = gets.chomp.capitalize
-			if ans == ('Yes') or ans == ('Y')
+			if ans == ('Yes') || ans == ('Y')
 				$start = Question.new
 				$start.check
 				case $name
@@ -75,7 +75,7 @@ class Question
 						$start.game
 					end
 			end
-			if ans == ('No') or ans == ('N')
+			if ans == ('No') || ans == ('N')
 				exit
 			end
 		end
@@ -92,18 +92,14 @@ class Question
 	end
 
 	def check
-		if $game_hash.key?($name)
+		if $name.is_a?(Hash) && $game_hash.key?($name)
 			$score = $game_hash[$name]
 			$start.complete
 		end
 	end
 
 	def sort
-		inv = $game_hash.invert
-		sorted = inv.sort
-		rev = sorted.reverse
-		re = rev.to_h
-		$game_hash = re.invert
+		$game_hash = $game_hash.sort_by {|key, value| [-value,key]}.to_h
 	end
 
 	def Hscore
