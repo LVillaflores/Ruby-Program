@@ -99,7 +99,10 @@ class Question
 	end
 
 	def sort
-		$game_hash = $game_hash.sort_by {|key, value| [-value,key]}.to_h
+  	sort_arr = $game_hash.to_a
+
+		sort_arr.sort
+		$game_hash = sort_arr.sort_by {|key, value| [-value, key]}.to_h
 	end
 
 	def Hscore
